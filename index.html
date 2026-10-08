@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TravelMontage s.r.o.</title>
+<meta name="description" content="TravelMontage s.r.o. — website coming soon.">
+<meta name="theme-color" content="#0A1526">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230D1B30'/%3E%3Cpath d='M8 20.5 L15 13.5 M13.5 9.5 a4 4 0 1 0 4.8 4.8 L22 18.3 l1.8-1.8 a1.2 1.2 0 0 0 0-1.7 l-3.6-3.6' fill='none' stroke='%23F28C28' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A1526; --bg2:#0D1B30; --navy:#13294B;
+    --accent:#F28C28; --accent-soft:rgba(242,140,40,.16);
+    --hi:#F5F7FA; --mid:#93A1BA; --faint:#5E6E8A;
+    --line:rgba(255,255,255,.09);
+    --sans:'IBM Plex Sans',Arial,sans-serif;
+    --cond:'IBM Plex Sans Condensed',Arial,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:var(--sans);color:var(--hi);background:var(--bg);
+    min-height:100vh;min-height:100svh;overflow-x:hidden;position:relative;line-height:1.5;
+    -webkit-font-smoothing:antialiased}
+
+  /* ambient blueprint */
+  .bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .bg .grid{position:absolute;inset:-2px;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(130% 120% at 72% 8%,#000 35%,transparent 100%);
+    mask-image:radial-gradient(130% 120% at 72% 8%,#000 35%,transparent 100%);opacity:.5}
+  .bg .glow{position:absolute;width:70vw;height:70vw;right:-14vw;top:-24vw;
+    background:radial-gradient(circle,var(--accent-soft),transparent 62%);filter:blur(10px);
+    animation:drift 22s ease-in-out infinite alternate}
+  .bg .scan{position:absolute;left:0;right:0;height:1px;top:0;
+    background:linear-gradient(90deg,transparent,rgba(242,140,40,.65) 18%,rgba(242,140,40,.9) 50%,rgba(242,140,40,.65) 82%,transparent);
+    box-shadow:0 0 14px 1px rgba(242,140,40,.35);animation:sweep 9s cubic-bezier(.5,0,.5,1) infinite}
+  @keyframes drift{from{transform:translate(0,0)}to{transform:translate(-5vw,6vh)}}
+  @keyframes sweep{0%{top:-2%;opacity:0}8%{opacity:1}92%{opacity:1}100%{top:102%;opacity:0}}
+
+  .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;
+    padding:clamp(24px,5vw,60px);min-height:100vh;min-height:100svh;display:flex;flex-direction:column}
+
+  /* language toggle */
+  .lang{display:flex;gap:8px;align-self:flex-end}
+  .lang button{display:inline-flex;align-items:center;gap:7px;cursor:pointer;
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--mid);
+    background:transparent;border:1px solid var(--line);border-radius:100px;padding:6px 11px;
+    transition:border-color .2s ease,color .2s ease,background .2s ease}
+  .lang button:hover{color:var(--hi);border-color:rgba(255,255,255,.22)}
+  .lang button.on{color:var(--accent);border-color:rgba(242,140,40,.45);background:rgba(242,140,40,.06)}
+  .lang button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .lang .flag{width:20px;height:13px;border-radius:2px;display:block;box-shadow:0 0 0 1px rgba(255,255,255,.12)}
+
+  main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;
+    gap:clamp(48px,11vh,120px);padding:clamp(40px,9vh,120px) 0;text-align:center}
+
+  .soon{display:inline-flex;align-items:center;gap:16px;
+    font-family:var(--mono);font-weight:500;text-transform:uppercase;color:var(--accent);
+    font-size:clamp(22px,4.4vw,48px);letter-spacing:.32em}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 0 rgba(242,140,40,.55);animation:pulse 2.4s ease-out infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(242,140,40,.5)}70%{box-shadow:0 0 0 9px rgba(242,140,40,0)}100%{box-shadow:0 0 0 0 rgba(242,140,40,0)}}
+
+  h1{font-family:var(--cond);font-weight:700;color:var(--hi);
+    font-size:clamp(62px,17vw,158px);line-height:.84;letter-spacing:-.01em;text-transform:uppercase;margin:22px 0 0}
+  h1 .ln{display:block}
+  h1 .mg{color:var(--accent)}
+
+  .rule{position:relative;height:26px;margin:22px 0 0;max-width:640px;border-top:1px solid var(--line);
+    background-image:repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px 48px);
+    background-position:top left;background-size:48px 9px;background-repeat:repeat-x}
+  .rule .mark{position:absolute;top:-5px;width:2px;height:12px;background:var(--accent);
+    box-shadow:0 0 10px rgba(242,140,40,.7);animation:slide 7s cubic-bezier(.65,0,.35,1) infinite alternate}
+  .rule .mark::after{content:'';position:absolute;top:-5px;left:-3px;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  @keyframes slide{from{left:0}to{left:100%}}
+
+  .contact{width:100%;max-width:760px;text-align:left}
+  .contact .label{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+  .roster{border-top:1px solid var(--line)}
+  .person{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;padding:16px 2px;
+    border-bottom:1px solid var(--line);text-decoration:none;color:inherit;
+    transition:padding-left .25s ease,background .25s ease}
+  .person:hover,.person:focus-visible{padding-left:14px;background:linear-gradient(90deg,rgba(242,140,40,.05),transparent 70%);outline:none}
+  .person .nm{font-family:var(--cond);font-weight:600;font-size:18px;color:var(--hi);min-width:170px}
+  .person .ro{font-size:12.5px;color:var(--mid);flex:1;min-width:150px}
+  .person .em{font-family:var(--mono);font-size:13px;color:var(--mid);display:inline-flex;align-items:center;gap:8px;transition:color .2s ease}
+  .person .em .arw{color:var(--accent);opacity:0;transform:translateX(-5px);transition:.25s ease}
+  .person:hover .em,.person:focus-visible .em{color:var(--accent)}
+  .person:hover .em .arw,.person:focus-visible .em .arw{opacity:1;transform:translateX(0)}
+
+  footer{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--faint);line-height:1.9;
+    padding-top:24px;margin-top:28px;border-top:1px solid var(--line);text-align:center}
+  footer b{color:var(--mid);font-weight:500}
+
+  .rise{opacity:0;transform:translateY(18px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+  .d1{animation-delay:.05s}.d2{animation-delay:.2s}.d3{animation-delay:.34s}.d4{animation-delay:.5s}.d5{animation-delay:.64s}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  @media (max-width:560px){
+    .person .nm{min-width:100%}.person .ro{min-width:100%;flex:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .scan{display:none}.glow,.dot,.rule .mark{animation:none}.rule .mark{left:64px}
+    .rise{animation:none;opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true"><div class="grid"></div><div class="glow"></div><div class="scan"></div></div>
+
+  <div class="wrap">
+    <nav class="lang rise d1" aria-label="Language">
+      <button type="button" data-set="en" class="on" aria-label="English">
+        <svg class="flag" viewBox="0 0 10 6" aria-hidden="true"><rect width="10" height="6" fill="#012169"/><path d="M0 0 10 6M10 0 0 6" stroke="#fff" stroke-width="1.2"/><path d="M0 0 10 6M10 0 0 6" stroke="#C8102E" stroke-width=".6"/><path d="M5 0V6M0 3H10" stroke="#fff" stroke-width="2"/><path d="M5 0V6M0 3H10" stroke="#C8102E" stroke-width="1.1"/></svg>EN
+      </button>
+      <button type="button" data-set="sk" aria-label="Slovensky">
+        <svg class="flag" viewBox="0 0 9 6" aria-hidden="true"><rect width="9" height="6" fill="#fff"/><rect width="9" height="2" y="2" fill="#0b4ea2"/><rect width="9" height="2" y="4" fill="#ee1c25"/><path d="M1 1.05h2.1v2.25q0 1.4-1.05 2.0-1.05-.6-1.05-2.0z" fill="#ee1c25" stroke="#fff" stroke-width=".2"/><path d="M2.05 1.5v2.5M1.5 2.15h1.1M1.35 2.75h1.4" stroke="#fff" stroke-width=".24" fill="none"/></svg>SK
+      </button>
+    </nav>
+
+    <main>
+      <span class="soon rise d2"><span class="dot"></span><span data-en="Coming soon" data-sk="Čoskoro spúšťame">Coming soon</span></span>
+
+      <section class="contact rise d4" aria-label="Contact">
+        <div class="label" data-en="Contact" data-sk="Kontakt">Contact</div>
+        <div class="roster">
+          <a class="person" href="mailto:petertkac@travelmontage.sk">
+            <span class="nm">Peter Tkáč</span>
+            <span class="ro" data-en="Co-Founder · Managing Director" data-sk="Spoluzakladateľ · Konateľ">Co-Founder · Managing Director</span>
+            <span class="em">petertkac@travelmontage.sk <span class="arw">→</span></span>
+          </a>
+          <a class="person" href="mailto:pavoltkac@travelmontage.sk">
+            <span class="nm">Pavol Tkáč</span>
+            <span class="ro" data-en="Co-Founder · Technical Director" data-sk="Spoluzakladateľ · Technický riaditeľ">Co-Founder · Technical Director</span>
+            <span class="em">pavoltkac@travelmontage.sk <span class="arw">→</span></span>
+          </a>
+          <a class="person" href="mailto:petervyslouzil@travelmontage.sk">
+            <span class="nm">Peter Vysloužil</span>
+            <span class="ro" data-en="Co-Founder · Commercial Director" data-sk="Spoluzakladateľ · Obchodný riaditeľ">Co-Founder · Commercial Director</span>
+            <span class="em">petervyslouzil@travelmontage.sk <span class="arw">→</span></span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="rise d5">
+      <b>TravelMontage s.r.o.</b><br>
+      1. mája 738/75, 044 42 Rozhanovce, Slovakia<br>
+      Company ID: 55750567 · VAT ID: SK2122077089
+    </footer>
+  </div>
+
+<script>
+(function(){
+  var btns=document.querySelectorAll('.lang button');
+  function set(l){
+    document.documentElement.lang=l;
+    document.querySelectorAll('[data-en]').forEach(function(e){
+      e.textContent = (l==='sk') ? e.getAttribute('data-sk') : e.getAttribute('data-en');
+    });
+    btns.forEach(function(b){ b.classList.toggle('on', b.dataset.set===l); });
+    try{ localStorage.setItem('tm_lang', l); }catch(_){}
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ set(b.dataset.set); }); });
+  var saved='en';
+  try{ saved=localStorage.getItem('tm_lang')||'en'; }catch(_){}
+  set(saved);
+})();
+</script>
+</body>
+</html>
